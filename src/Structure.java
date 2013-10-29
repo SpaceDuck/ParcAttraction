@@ -38,7 +38,13 @@ public abstract class Structure {
 	}
 	
 	public void ajoutClient () {
-		
+		if (this.nbPlace < this.NB_PLACE_MAX)
+			++ this.nbPlace;
+	}
+	
+	public void supprClient () {
+		if (this.nbPlace > 0)
+			-- this.nbPlace;
 	}
 
 	@Override
