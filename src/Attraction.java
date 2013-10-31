@@ -1,9 +1,13 @@
+import java.awt.List;
+import java.util.ArrayList;
+
 
 public abstract class Attraction extends Structure {
 	
 	private int probaPanne;
 	private boolean restricAge;
 	private int tpsAtt;
+	private boolean enMarche;
 	
 
 	private Attraction(String nom, int nbPlace, int tpsExec) {
@@ -47,6 +51,15 @@ public abstract class Attraction extends Structure {
 
 	public void setTpsAtt(int tpsAtt) {
 		this.tpsAtt = tpsAtt;
+	}
+	
+	public boolean isEnMarche() {
+		return enMarche;
+	}
+
+
+	public void setEnMarche(boolean enMarche) {
+		this.enMarche = enMarche;
 	}
 
 

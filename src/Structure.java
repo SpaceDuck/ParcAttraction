@@ -1,9 +1,13 @@
+import java.util.ArrayList;
+import java.util.List;
+
 
 public abstract class Structure {
 	private String nom;
 	private int nbPlace;
 	private final int NB_PLACE_MAX;
 	private int tpsExec;
+	private List<Visiteur> listVisiteur = new ArrayList<Visiteur> ();
 	
 	public Structure(String nom, int nbPlace, int tpsExec, int nbPlaceMax) {
 		super();
@@ -45,6 +49,12 @@ public abstract class Structure {
 	public void supprClient () {
 		if (this.nbPlace > 0)
 			-- this.nbPlace;
+	}
+	
+	public void ajoutVisiteur (Visiteur visiteur) {
+		if (this.nbPlace <= this.NB_PLACE_MAX) {
+			
+		}
 	}
 
 	@Override
