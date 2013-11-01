@@ -1,7 +1,3 @@
-import java.awt.List;
-import java.util.ArrayList;
-
-
 public abstract class Attraction extends Structure {
 	
 	private int probaPanne;
@@ -22,7 +18,6 @@ public abstract class Attraction extends Structure {
 		this.restricAge = restricAge;
 		this.tpsAtt = tpsAtt;
 	}
-
 
 	public int getProbaPanne() {
 		return probaPanne;
@@ -67,5 +62,39 @@ public abstract class Attraction extends Structure {
 	public String toString() {
 		return "Attraction [probaPanne=" + probaPanne + ", restricAge="
 				+ restricAge + ", tpsAtt=" + tpsAtt + "]";
+	}
+	
+	public void ajoutVisiteur (Visiteur visiteur) {
+		if (this.isEnMarche()) {
+			System.out.println("Impossible, l'attraction " + this.getNom() +  " est en fonctionnement.");
+		}
+		else {
+			if (this.getNbPlace() < this.getNbPlaceMax()) {
+				this.getListVisiteur().add(visiteur);
+				this.setNbPlace(this.getNbPlace() + 1);
+				visiteur.setOccupé(true);
+				System.out.println("Ajout de visiteur dans la structure " + this.getNom());
+			}
+			else {
+				System.out.println("Impossible de rajouter un visiteur dans la structure " + this.getNom() + ". Structure pleine.");
+			}
+		}
+	}
+	
+	public void supprVisiteur (Visiteur visiteur) {
+		if (this.isEnMarche()) {
+			System.out.println("Impossible, l'attraction " + this.getNom() +  " est en fonctionnement.");
+		}
+		else {
+			if (this.getNbPlace() > 0)
+			{
+				this.getListVisiteur().remove(visiteur);
+				this.setNbPlace(this.getNbPlace () - 1);
+				System.out.println("Visiteur sortie de la structure " + this.getNom());
+			}
+			else {
+				System.out.println("Impossible d'enlever un visiteur, pas de visiteur dans structure " + this.getNom());
+			}	
+		}
 	}
 }

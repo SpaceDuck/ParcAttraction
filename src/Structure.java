@@ -41,22 +41,46 @@ public abstract class Structure {
 		this.tpsExec = tpsExec;
 	}
 	
-	public void ajoutClient () {
-		if (this.nbPlace < this.NB_PLACE_MAX)
-			++ this.nbPlace;
+	public int getNbPlaceMax () {
+		return this.NB_PLACE_MAX;
 	}
 	
-	public void supprClient () {
-		if (this.nbPlace > 0)
-			-- this.nbPlace;
-	}
-	
-	public void ajoutVisiteur (Visiteur visiteur) {
-		if (this.nbPlace <= this.NB_PLACE_MAX) {
-			
-		}
+	public List<Visiteur> getListVisiteur() {
+		return listVisiteur;
 	}
 
+	public void ajoutVisiteur (Visiteur visiteur) {
+		if (this.nbPlace < this.NB_PLACE_MAX) {
+			this.listVisiteur.add(visiteur);
+			++ this.nbPlace;
+			visiteur.setOccupé(true);
+			System.out.println("Ajout de visiteur dans la structure " + this.nom);
+		}
+		else {
+			System.out.println("Impossible de rajouter un visiteur dans la structure " + this.nom + ". Structure pleine.");
+		}
+	}
+	
+	public void supprVisiteur (Visiteur visiteur) {
+		if (this.nbPlace > 0)
+		{
+			this.listVisiteur.remove(visiteur);
+			-- this.nbPlace;
+			System.out.println("Visiteur sortie de la structure " + this.nom);
+		}
+		else {
+			System.out.println("Impossible d'enlever un visiteur, pas de visiteur dans structure " + this.nom);
+		}
+	}
+	
+	public void supprAllVisiteur () {
+		for (Visiteur v : this.listVisiteur) {
+			supprVisiteur(v);
+		}
+		System.out.println("Attraction " + this.nom + " vide");
+	}
+	
+	
 	@Override
 	public String toString() {
 		return "Structure [nom=" + nom + ", nbPlace=" + nbPlace + ", tpsExec="
