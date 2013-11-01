@@ -1,3 +1,5 @@
+import java.util.Random;
+
 
 public class Visiteur {
 	private boolean adulte;
@@ -51,6 +53,29 @@ public class Visiteur {
 		this.occupé = occupé;
 	}
 	
-	
+	public void searchStruct (Parc parc) {
+		Random rand = new Random ();
+		int nbRand = rand.nextInt(parc.getNbStruct()) + 1;
+		int i = 1;
+		
+		for (Structure s : parc.getListStruct()) {
+			if (i == nbRand) {
+				s.ajoutVisiteur(this);
+				if (this.occupé) {
+					break;
+				}
+				else {
+					this.searchStruct(parc);
+				}
+			}
+			++i;
+		}
+	}
+
+	@Override
+	public String toString() {
+		return "Visiteur [adulte=" + adulte + ", porteMonnaie=" + porteMonnaie
+				+ ", dureeVie=" + dureeVie + ", occupé=" + occupé + "]";
+	}
 	
 }

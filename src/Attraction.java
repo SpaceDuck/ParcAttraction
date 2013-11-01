@@ -61,7 +61,8 @@ public abstract class Attraction extends Structure {
 	@Override
 	public String toString() {
 		return "Attraction [probaPanne=" + probaPanne + ", restricAge="
-				+ restricAge + ", tpsAtt=" + tpsAtt + "]";
+				+ restricAge + ", tpsAtt=" + tpsAtt + ", enMarche=" + enMarche
+				+ "]";
 	}
 	
 	public void ajoutVisiteur (Visiteur visiteur) {
@@ -86,15 +87,29 @@ public abstract class Attraction extends Structure {
 			System.out.println("Impossible, l'attraction " + this.getNom() +  " est en fonctionnement.");
 		}
 		else {
-			if (this.getNbPlace() > 0)
+			if (this.getNbPlace() >= 0)
 			{
 				this.getListVisiteur().remove(visiteur);
 				this.setNbPlace(this.getNbPlace () - 1);
+				visiteur.setOccupé(false);
 				System.out.println("Visiteur sortie de la structure " + this.getNom());
 			}
 			else {
-				System.out.println("Impossible d'enlever un visiteur, pas de visiteur dans structure " + this.getNom());
+				System.out.println("Impossible d'enlever un visiteur, pas de visiteur dans la structure " + this.getNom());
 			}	
+		}
+	}
+	
+	public void supprAllVisiteur () {
+		if (this.isEnMarche()) {
+			System.out.println("Impossible, la structure " + this.getNom() +  " est en fonctionnement.");
+		}
+		else {
+			for (Visiteur v : this.getListVisiteur()) {
+				v.setOccupé(false);
+			}
+			this.getListVisiteur().clear();
+			System.out.println("Structure " + this.getNom() + " vide");			
 		}
 	}
 }

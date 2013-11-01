@@ -46,7 +46,7 @@ public abstract class Structure {
 	}
 	
 	public List<Visiteur> getListVisiteur() {
-		return listVisiteur;
+		return this.listVisiteur;
 	}
 
 	public void ajoutVisiteur (Visiteur visiteur) {
@@ -66,6 +66,7 @@ public abstract class Structure {
 		{
 			this.listVisiteur.remove(visiteur);
 			-- this.nbPlace;
+			visiteur.setOccupé(false);
 			System.out.println("Visiteur sortie de la structure " + this.nom);
 		}
 		else {
@@ -74,18 +75,18 @@ public abstract class Structure {
 	}
 	
 	public void supprAllVisiteur () {
-		for (Visiteur v : this.listVisiteur) {
-			supprVisiteur(v);
+		for (Visiteur v : this.getListVisiteur()) {
+			v.setOccupé(false);
 		}
-		System.out.println("Attraction " + this.nom + " vide");
+		this.listVisiteur.clear();
+		System.out.println("Structure " + this.nom + " vide");
 	}
-	
-	
+
 	@Override
 	public String toString() {
-		return "Structure [nom=" + nom + ", nbPlace=" + nbPlace + ", tpsExec="
-				+ tpsExec + "]";
+		return "Structure [nom=" + nom + ", nbPlace=" + nbPlace
+				+ ", NB_PLACE_MAX=" + NB_PLACE_MAX + ", tpsExec=" + tpsExec
+				+ ", listVisiteur=" + listVisiteur + "]";
 	}
-	
 	
 }

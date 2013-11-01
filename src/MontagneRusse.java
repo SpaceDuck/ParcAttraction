@@ -13,6 +13,4 @@ public class MontagneRusse extends AttractionSensation{
 		super(nom, nbPlace, tpsExec, RESTRIC_AGE, tpsAtt);
 		this.setNom("[Montagne Russe] " + this.getNom());
 	}
-
-
 }
