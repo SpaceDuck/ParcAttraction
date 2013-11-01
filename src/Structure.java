@@ -7,14 +7,16 @@ public abstract class Structure {
 	private int nbPlace;
 	private final int NB_PLACE_MAX;
 	private int tpsExec;
+	private boolean restricAge;
 	private List<Visiteur> listVisiteur = new ArrayList<Visiteur> ();
 	
-	public Structure(String nom, int nbPlace, int tpsExec, int nbPlaceMax) {
+	public Structure(String nom, int nbPlace, int tpsExec, int nbPlaceMax, boolean restricAge) {
 		super();
 		this.nom = nom;
 		this.nbPlace = nbPlace;
 		this.tpsExec = tpsExec;
 		this.NB_PLACE_MAX = nbPlaceMax;
+		this.restricAge = restricAge;
 	}
 
 	public String getNom() {
@@ -49,15 +51,32 @@ public abstract class Structure {
 		return this.listVisiteur;
 	}
 
+	public boolean isRestricAge() {
+		return restricAge;
+	}
+
+	public void setRestricAge(boolean restricAge) {
+		this.restricAge = restricAge;
+	}
+
+	public int getNB_PLACE_MAX() {
+		return NB_PLACE_MAX;
+	}
+
 	public void ajoutVisiteur (Visiteur visiteur) {
-		if (this.nbPlace < this.NB_PLACE_MAX) {
-			this.listVisiteur.add(visiteur);
-			++ this.nbPlace;
-			visiteur.setOccupé(true);
-			System.out.println("Ajout de visiteur dans la structure " + this.nom);
+		if (this.restricAge && !(visiteur.isAdulte())) {
+			System.out.println("Seul un adulte peu aller dans cette structure !");
 		}
 		else {
-			System.out.println("Impossible de rajouter un visiteur dans la structure " + this.nom + ". Structure pleine.");
+			if (this.nbPlace < this.NB_PLACE_MAX) {
+				this.listVisiteur.add(visiteur);
+				++ this.nbPlace;
+				visiteur.setOccupé(true);
+				System.out.println("Ajout de visiteur dans la structure " + this.nom);
+			}
+			else {
+				System.out.println("Impossible de rajouter un visiteur dans la structure " + this.nom + ". Structure pleine.");
+			}
 		}
 	}
 	
@@ -86,7 +105,8 @@ public abstract class Structure {
 	public String toString() {
 		return "Structure [nom=" + nom + ", nbPlace=" + nbPlace
 				+ ", NB_PLACE_MAX=" + NB_PLACE_MAX + ", tpsExec=" + tpsExec
-				+ ", listVisiteur=" + listVisiteur + "]";
+				+ ", restricAge=" + restricAge + ", listVisiteur="
+				+ listVisiteur + "]";
 	}
 	
 }
