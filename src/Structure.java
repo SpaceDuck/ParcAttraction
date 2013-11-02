@@ -100,6 +100,10 @@ public abstract class Structure {
 		this.listVisiteur.clear();
 		System.out.println("Structure " + this.nom + " vide");
 	}
+	
+	public void clearVisiteurStruct () {
+		this.listVisiteur = new ArrayList<Visiteur> ();
+	}
 
 	@Override
 	public String toString() {

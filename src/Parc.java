@@ -9,12 +9,13 @@ public class Parc {
 	private int nbStruct = 0;
 	private final int NB_STRUCT_MAX;
 	private List<Structure> listStruct = new ArrayList<Structure> ();
+	private List<Attraction> listAttract = new ArrayList<Attraction> ();
 	private int nbVisiteur = 0;
 	private final int NB_VISITEUR_MAX;
 	private List<Visiteur> listVisiteur = new ArrayList<Visiteur> ();
 	
 	public Parc(String nom, int hDeb, int hFin, int nbStruct,
-			int nB_STRUCT_MAX, List<Structure> listStruct, int nbVisiteur,
+			int nB_STRUCT_MAX, List<Attraction> listAttract, int nbVisiteur,
 			int nB_VISITEUR_MAX, List<Visiteur> listVisiteur) {
 		super();
 		this.nom = nom;
@@ -22,7 +23,7 @@ public class Parc {
 		this.hFin = hFin;
 		this.nbStruct = nbStruct;
 		NB_STRUCT_MAX = nB_STRUCT_MAX;
-		this.listStruct = listStruct;
+		this.listAttract = listAttract;
 		this.nbVisiteur = nbVisiteur;
 		NB_VISITEUR_MAX = nB_VISITEUR_MAX;
 		this.listVisiteur = listVisiteur;
@@ -46,16 +47,38 @@ public class Parc {
 		}
 	}
 	
-	public void ajoutStructure (Structure structure) {
+	public void ajoutAttraction (Attraction attraction) {
 		if (this.nbStruct < this.NB_STRUCT_MAX) {
-			this.listStruct.add(structure);
+			this.listAttract.add(attraction);
+			this.listStruct.add(attraction);
 			++ this.nbStruct;
 			System.out.println("Ajout d'une structure dans le parc " + this.nom);
 		}
 		else {
 			System.out.println("Impossible de rajouter une structure dans le parc " + this.nom + ". Parc plein.");
 		}
-	}	
+	}
+	
+	public void allVisiteurSearch () {
+		for (Visiteur v : listVisiteur) {
+			if (!(v.isOccupé())) {
+				v.searchStruct(this);
+			}
+		}
+	}
+	
+	public void allAttractExec () {
+		for (Attraction a : listAttract) {
+			if (!(a.isEnMarche())) {
+				try {
+					a.exec();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+	}
 	
 	public String getNom() {
 		return nom;
@@ -102,19 +125,14 @@ public class Parc {
 	public void setNbStruct(int nbStruct) {
 		this.nbStruct = nbStruct;
 	}
-
-
-
+	
 	public List<Structure> getListStruct() {
 		return listStruct;
 	}
 
-
-
-	public void setListStruct(List<Structure> listStruct) {
-		this.listStruct = listStruct;
+	public List<Attraction> getListAttract() {
+		return listAttract;
 	}
-
 
 
 	public int getNbVisiteur() {
@@ -195,9 +213,9 @@ public class Parc {
 		Visiteur v2 =  new Visiteur (true, 10, 2);
 		Visiteur v3 = new Visiteur(true, 10, 2);
 		
-		this.ajoutStructure(mont1);
-		this.ajoutStructure(mont2);
-		this.ajoutStructure(mont3);
+		this.ajoutAttraction(mont1);
+		this.ajoutAttraction(mont2);
+		this.ajoutAttraction(mont3);
 		this.ajoutVisiteur(v1);
 		this.ajoutVisiteur(v2);
 		this.ajoutVisiteur(v3);
@@ -219,9 +237,35 @@ public class Parc {
 		mont3.supprAllVisiteur();
 	}
 	
+	public void test3 () {
+		MontagneRusse mont1 = new MontagneRusse("Truc de la mort 1", 2, 2, 5);
+		MontagneRusse mont2 = new MontagneRusse("Truc de la mort 2", 2, 2, 5);
+		MontagneRusse mont3 = new MontagneRusse("Truc de la mort 3", 2, 2, 5);
+		Visiteur v1 = new Visiteur(true, 10, 2);
+		Visiteur v2 =  new Visiteur (true, 10, 2);
+		Visiteur v3 = new Visiteur(true, 10, 2);
+		Visiteur v4 = new Visiteur(true, 10, 2);
+		Visiteur v5 =  new Visiteur (true, 10, 2);
+		Visiteur v6 = new Visiteur(true, 10, 2);
+		
+		this.ajoutAttraction(mont1);
+		this.ajoutAttraction(mont2);
+		this.ajoutAttraction(mont3);
+		this.ajoutVisiteur(v1);
+		this.ajoutVisiteur(v2);
+		this.ajoutVisiteur(v3);
+		this.ajoutVisiteur(v4);
+		this.ajoutVisiteur(v5);
+		this.ajoutVisiteur(v6);
+		while(true) {
+			this.allVisiteurSearch();
+			this.allAttractExec();
+		}
+	}
+	
 	public static void main(String[] args) {
 		Parc parc = new Parc("TEST", 5, 10);
-		parc.test2();
+		parc.test3();
 	}
 
 }

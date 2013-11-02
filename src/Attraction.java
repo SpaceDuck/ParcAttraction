@@ -100,8 +100,15 @@ public abstract class Attraction extends Structure {
 			for (Visiteur v : this.getListVisiteur()) {
 				v.setOccupé(false);
 			}
-			this.getListVisiteur().clear();
+			this.clearVisiteurStruct();
 			System.out.println("Structure " + this.getNom() + " vide");			
 		}
+	}
+	
+	public void exec () throws Exception {
+		this.enMarche = true;
+		Thread.sleep(1000 * this.getTpsExec());
+		this.enMarche = false;
+		this.supprAllVisiteur();
 	}
 }
