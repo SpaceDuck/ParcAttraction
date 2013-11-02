@@ -102,7 +102,10 @@ public abstract class Structure {
 	}
 	
 	public void clearVisiteurStruct () {
-		this.listVisiteur = new ArrayList<Visiteur> ();
+		while (!(this.listVisiteur.isEmpty())) {
+			this.listVisiteur.remove(0);
+			this.nbPlace = 0;
+		}
 	}
 
 	@Override

@@ -3,6 +3,7 @@ public abstract class Attraction extends Structure {
 	private int probaPanne;
 	private int tpsAtt;
 	private boolean enMarche;
+	private boolean enInspection;
 	
 
 	private Attraction(String nom, int nbPlace, int tpsExec, boolean restricAge) {
@@ -46,6 +47,16 @@ public abstract class Attraction extends Structure {
 	}
 
 
+	public boolean isEnInspection() {
+		return enInspection;
+	}
+
+
+	public void setEnInspection(boolean enInspection) {
+		this.enInspection = enInspection;
+	}
+
+
 	@Override
 	public String toString() {
 		return "Attraction [probaPanne=" + probaPanne + ", tpsAtt=" + tpsAtt + ", enMarche=" + enMarche
@@ -53,24 +64,29 @@ public abstract class Attraction extends Structure {
 	}
 	
 	public void ajoutVisiteur (Visiteur visiteur) {
-		if (this.isRestricAge() && !(visiteur.isAdulte())) {
-			System.out.println("Seul un adulte peu aller dans cette structure !");
-		}
-		else {
-			if (this.isEnMarche()) {
-				System.out.println("Impossible, l'attraction " + this.getNom() +  " est en fonctionnement.");
+		if (!(this.enInspection)) {
+			if (this.isRestricAge() && !(visiteur.isAdulte())) {
+				System.out.println("Seul un adulte peu aller dans cette structure !");
 			}
 			else {
-				if (this.getNbPlace() < this.getNbPlaceMax()) {
-					this.getListVisiteur().add(visiteur);
-					this.setNbPlace(this.getNbPlace() + 1);
-					visiteur.setOccupé(true);
-					System.out.println("Ajout de visiteur dans la structure " + this.getNom());
+				if (this.isEnMarche()) {
+					System.out.println("Impossible, l'attraction " + this.getNom() +  " est en fonctionnement.");
 				}
 				else {
-					System.out.println("Impossible de rajouter un visiteur dans la structure " + this.getNom() + ". Structure pleine.");
+					if (this.getNbPlace() < this.getNbPlaceMax()) {
+						this.getListVisiteur().add(visiteur);
+						this.setNbPlace(this.getNbPlace() + 1);
+						visiteur.setOccupé(true);
+						System.out.println("Ajout de visiteur dans la structure " + this.getNom());
+					}
+					else {
+						System.out.println("Impossible de rajouter un visiteur dans la structure " + this.getNom() + ". Structure pleine.");
+					}
 				}
 			}
+		}
+		else {
+			System.out.println("Impossible, l'attraction " + this.getNom() +  " est en inspection.");
 		}
 	}
 	
@@ -106,9 +122,14 @@ public abstract class Attraction extends Structure {
 	}
 	
 	public void exec () throws Exception {
-		this.enMarche = true;
-		Thread.sleep(1000 * this.getTpsExec());
-		this.enMarche = false;
-		this.supprAllVisiteur();
+		if (!(this.enInspection)) {
+			this.enMarche = true;
+			Thread.sleep(1000 * this.getTpsExec());
+			this.enMarche = false;
+			this.supprAllVisiteur();
+		}
+		else {
+			System.out.println("Impossible, l'attraction " + this.getNom() +  " est en inspection.");
+		}
 	}
 }

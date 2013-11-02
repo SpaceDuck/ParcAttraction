@@ -257,10 +257,12 @@ public class Parc {
 		this.ajoutVisiteur(v4);
 		this.ajoutVisiteur(v5);
 		this.ajoutVisiteur(v6);
-		while(true) {
-			this.allVisiteurSearch();
-			this.allAttractExec();
-		}
+		
+		this.allVisiteurSearch();
+		this.allAttractExec();
+		
+		this.allVisiteurSearch();
+		this.allAttractExec();
 	}
 	
 	public static void main(String[] args) {
