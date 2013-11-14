@@ -8,6 +8,7 @@ public abstract class Structure {
 	private final int NB_PLACE_MAX;
 	private int tpsExec;
 	private boolean restricAge;
+	private int nivPropre = 100;
 	private List<Visiteur> listVisiteur = new ArrayList<Visiteur> ();
 	
 	public Structure(String nom, int nbPlace, int tpsExec, int nbPlaceMax, boolean restricAge) {
@@ -51,6 +52,14 @@ public abstract class Structure {
 		return this.listVisiteur;
 	}
 
+	public int getNivPropre() {
+		return nivPropre;
+	}
+
+	public void setNivPropre(int nivPropre) {
+		this.nivPropre = nivPropre;
+	}
+
 	public boolean isRestricAge() {
 		return restricAge;
 	}
@@ -71,7 +80,7 @@ public abstract class Structure {
 			if (this.nbPlace < this.NB_PLACE_MAX) {
 				this.listVisiteur.add(visiteur);
 				++ this.nbPlace;
-				visiteur.setOccupé(true);
+				visiteur.setOccupe(true);
 				System.out.println("Ajout de visiteur dans la structure " + this.nom);
 			}
 			else {
@@ -85,7 +94,7 @@ public abstract class Structure {
 		{
 			this.listVisiteur.remove(visiteur);
 			-- this.nbPlace;
-			visiteur.setOccupé(false);
+			visiteur.setOccupe(false);
 			System.out.println("Visiteur sortie de la structure " + this.nom);
 		}
 		else {
@@ -95,7 +104,7 @@ public abstract class Structure {
 	
 	public void supprAllVisiteur () {
 		for (Visiteur v : this.getListVisiteur()) {
-			v.setOccupé(false);
+			v.setOccupe(false);
 		}
 		this.listVisiteur.clear();
 		System.out.println("Structure " + this.nom + " vide");

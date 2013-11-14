@@ -5,7 +5,7 @@ public class Visiteur {
 	private boolean adulte;
 	private int porteMonnaie;
 	private int dureeVie;
-	private boolean occupé;
+	private boolean occupe;
 	
 	public Visiteur(boolean adulte, int porteMonnaie, int dureeVie) {
 		super();
@@ -45,12 +45,12 @@ public class Visiteur {
 		this.dureeVie = dureeVie;
 	}
 
-	public boolean isOccupé() {
-		return occupé;
+	public boolean isOccupe() {
+		return occupe;
 	}
 
-	public void setOccupé(boolean occupé) {
-		this.occupé = occupé;
+	public void setOccupe(boolean occupe) {
+		this.occupe = occupe;
 	}
 	
 	public void searchStruct (Parc parc) {
@@ -61,7 +61,7 @@ public class Visiteur {
 		for (Structure s : parc.getListStruct()) {
 			if (i == nbRand) {
 				s.ajoutVisiteur(this);
-				if (this.occupé) {
+				if (this.occupe) {
 					break;
 				}
 				else {
@@ -75,7 +75,7 @@ public class Visiteur {
 	@Override
 	public String toString() {
 		return "Visiteur [adulte=" + adulte + ", porteMonnaie=" + porteMonnaie
-				+ ", dureeVie=" + dureeVie + ", occupé=" + occupé + "]";
+				+ ", dureeVie=" + dureeVie + ", occupe=" + occupe + "]";
 	}
 	
 }

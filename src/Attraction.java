@@ -76,7 +76,7 @@ public abstract class Attraction extends Structure {
 					if (this.getNbPlace() < this.getNbPlaceMax()) {
 						this.getListVisiteur().add(visiteur);
 						this.setNbPlace(this.getNbPlace() + 1);
-						visiteur.setOccupé(true);
+						visiteur.setOccupe(true);
 						System.out.println("Ajout de visiteur dans la structure " + this.getNom());
 					}
 					else {
@@ -99,7 +99,7 @@ public abstract class Attraction extends Structure {
 			{
 				this.getListVisiteur().remove(visiteur);
 				this.setNbPlace(this.getNbPlace () - 1);
-				visiteur.setOccupé(false);
+				visiteur.setOccupe(false);
 				System.out.println("Visiteur sortie de la structure " + this.getNom());
 			}
 			else {
@@ -114,19 +114,39 @@ public abstract class Attraction extends Structure {
 		}
 		else {
 			for (Visiteur v : this.getListVisiteur()) {
-				v.setOccupé(false);
+				v.setOccupe(false);
 			}
 			this.clearVisiteurStruct();
 			System.out.println("Structure " + this.getNom() + " vide");			
 		}
 	}
 	
-	public void exec () throws Exception {
-		if (!(this.enInspection)) {
+	public void appelReparateur(Parc p) throws InterruptedException{
+		for (Reparateur r : p.getListReparateur()){
+			if (r.isTravaille() == false){
+				r.setTravaille(true);
+				this.enInspection = true;
+				Thread.sleep(3000);
+				this.probaPanne = 0;
+				r.setTravaille(false);
+				this.enInspection = false;
+				break;
+			}
+			if (this.probaPanne != 0){
+				appelReparateur(p);
+			}
+		}
+	}
+	
+	public void exec() throws Exception {
+		if (!(this.enInspection) && (this.probaPanne < 50 )) {
 			this.enMarche = true;
 			Thread.sleep(1000 * this.getTpsExec());
 			this.enMarche = false;
 			this.supprAllVisiteur();
+		}
+		else if (!(this.enInspection) && (this.probaPanne >= 50)){
+			this.appelReparateur(p)
 		}
 		else {
 			System.out.println("Impossible, l'attraction " + this.getNom() +  " est en inspection.");

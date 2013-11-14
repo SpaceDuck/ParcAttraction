@@ -1,6 +1,6 @@
 #Simulation d'un parc d'attraction
 ##Présentation
-Projet java de LP SIL DA2I par **Karine Guiduccican**, **Vincent Piot** et **François Waxin**.
+Projet java de LP SIL DA2I par **Karine Guiducci**, **Vincent Piot** et **François Waxin**.
 
 Un **parc** se compose de trois grandes entités : les **structures**, les **visiteurs** et les **employés**.
 Il a une *taille* (nombre de structures), une *capacité* de visiteur et des *horaires*.

@@ -10,6 +10,8 @@ public class Parc {
 	private final int NB_STRUCT_MAX;
 	private List<Structure> listStruct = new ArrayList<Structure> ();
 	private List<Attraction> listAttract = new ArrayList<Attraction> ();
+	private List<AgentEntretien> listAgentEntretien = new ArrayList<AgentEntretien>();
+	private List<Reparateur> listReparateur = new ArrayList<Reparateur>();
 	private int nbVisiteur = 0;
 	private final int NB_VISITEUR_MAX;
 	private List<Visiteur> listVisiteur = new ArrayList<Visiteur> ();
@@ -59,9 +61,25 @@ public class Parc {
 		}
 	}
 	
+	public void ajoutAgentEntretien(AgentEntretien agentEntretien){
+		this.listAgentEntretien.add(agentEntretien);
+	}
+	
+	public void ajoutReparateur(Reparateur reparateur){
+		this.listReparateur.add(reparateur);
+	}
+	
+	public List<AgentEntretien> getListAgentEntretien() {
+		return listAgentEntretien;
+	}
+
+	public List<Reparateur> getListReparateur() {
+		return listReparateur;
+	}
+
 	public void allVisiteurSearch () {
 		for (Visiteur v : listVisiteur) {
-			if (!(v.isOccupé())) {
+			if (!(v.isOccupe())) {
 				v.searchStruct(this);
 			}
 		}
@@ -241,6 +259,8 @@ public class Parc {
 		MontagneRusse mont1 = new MontagneRusse("Truc de la mort 1", 2, 2, 5);
 		MontagneRusse mont2 = new MontagneRusse("Truc de la mort 2", 2, 2, 5);
 		MontagneRusse mont3 = new MontagneRusse("Truc de la mort 3", 2, 2, 5);
+		Bulle bulle1 = new Bulle("Mon jeu aquatique", 2, 2, 5);
+		
 		Visiteur v1 = new Visiteur(true, 10, 2);
 		Visiteur v2 =  new Visiteur (true, 10, 2);
 		Visiteur v3 = new Visiteur(true, 10, 2);
@@ -251,6 +271,7 @@ public class Parc {
 		this.ajoutAttraction(mont1);
 		this.ajoutAttraction(mont2);
 		this.ajoutAttraction(mont3);
+		this.ajoutAttraction(bulle1);
 		this.ajoutVisiteur(v1);
 		this.ajoutVisiteur(v2);
 		this.ajoutVisiteur(v3);
