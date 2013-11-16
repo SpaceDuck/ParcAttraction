@@ -470,7 +470,33 @@ public class Parc {
 			}
 		}
 		
+		System.out.println("Enfin, pour finir, il faut embaucher le personnel pour la maintenance du parc.\nPour commencer deux agents d'entretiens.\n");
+		System.out.println("Nom du premier agent :");
+		nom = sc.nextLine();
+		this.ajoutAgentEntretien(new AgentEntretien(nom));
+		System.out.println("Nom du deuxieme agent :");
+		nom = sc.nextLine();
+		this.ajoutAgentEntretien(new AgentEntretien(nom));
 		
+		System.out.println("Et enfin, le réparateur d'attraction.\nSon nom :");
+		nom = sc.nextLine();
+		this.ajoutReparateur(new Reparateur(nom));
+		
+		System.out.println("La création du parc est terminée.\nLa simulation commence dans 3sec...");
+		try {
+			Thread.sleep(1000);
+			System.out.println("2sec...");
+			Thread.sleep(1000);
+			System.out.println("1sec...");
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
+		while (sc.nextLine() != "exit") {
+			this.allVisiteurSearch();
+			this.allAttractExec();
+		}
 		
 		sc.close();
 	}
