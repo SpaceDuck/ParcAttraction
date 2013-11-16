@@ -114,7 +114,7 @@ public abstract class Attraction extends Structure {
 			for (Visiteur v : this.getListVisiteur()) {
 				v.setOccupe(false);
 			}
-			this.clearVisiteurStruct();
+			this.getListVisiteur().clear();
 			System.out.println("Structure " + this.getNom() + " vide");			
 		}
 	}

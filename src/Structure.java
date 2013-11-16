@@ -10,6 +10,7 @@ public abstract class Structure {
 	private boolean restricAge;
 	private int nivPropre = 100;
 	private List<Visiteur> listVisiteur = new ArrayList<Visiteur> ();
+	private static final int TAUX_SALIR = 5;
 	
 	public Structure(String nom, int tpsExec, int nbPlaceMax, boolean restricAge) {
 		super();
@@ -109,10 +110,10 @@ public abstract class Structure {
 		System.out.println("Structure " + this.nom + " vide");
 	}
 	
-	public void clearVisiteurStruct () {
-		while (!(this.listVisiteur.isEmpty())) {
-			this.listVisiteur.remove(0);
-			this.nbPlace = 0;
+	public void exec (Parc p) throws Exception {
+		while (!(this.getListVisiteur().isEmpty())) {
+			
+			this.getListVisiteur().get(0).exec(this);
 		}
 	}
 

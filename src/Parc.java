@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class Parc {
@@ -19,6 +21,7 @@ public class Parc {
 	private List<Visiteur> listVisiteur = new ArrayList<Visiteur> ();
 	
 	private static final int COEFF_VISTEUR = 4;
+	private static final int COEFF_ADULTE = 4;
 	
 	public Parc(String nom, int hDeb, int hFin, int nbStruct,
 			int nbStrucMax, List<Attraction> listAttract, int nbVisiteur,
@@ -95,6 +98,17 @@ public class Parc {
 
 	public List<Reparateur> getListReparateur() {
 		return listReparateur;
+	}
+	
+	@Override
+	public String toString() {
+		return "Parc [nom=" + nom + ", hDeb=" + hDeb + ", hFin=" + hFin
+				+ ", nbStruct=" + nbStruct + ", nbStrucMax=" + nbStrucMax
+				+ ", listStruct=" + listStruct + ", listAttract=" + listAttract
+				+ ", listBoutique=" + listBoutique + ", listAgentEntretien="
+				+ listAgentEntretien + ", listReparateur=" + listReparateur
+				+ ", nbVisiteur=" + nbVisiteur + ", nbVisiteurMax="
+				+ nbVisiteurMax + ", listVisiteur=" + listVisiteur + "]";
 	}
 
 	public void allVisiteurSearch () {
@@ -233,6 +247,36 @@ public class Parc {
 		return COEFF_VISTEUR;
 	}
 	
+	public int extractInt(String str) {
+        Matcher matcher = Pattern.compile("\\d+").matcher(str);
+
+        if (!matcher.find())
+            return 0;
+        
+       	return Integer.parseInt(matcher.group());
+	}
+	
+	public void creationVisiteur ()
+	{
+		boolean adulte;
+		int porteMonnaie;
+		final int HIGHER = 100;
+		int random;
+		
+		for (int i = 0; i < this.nbVisiteurMax; ++i) {
+			random = (int)(Math.random() * COEFF_ADULTE);
+			if (random == 0) {
+				adulte = false;
+				porteMonnaie = 0;
+			}
+			else {
+				adulte = true;
+				porteMonnaie = (int)(Math.random() * (HIGHER));
+			}
+			this.ajoutVisiteur(new Visiteur(adulte, porteMonnaie, 1));
+		}
+	}
+	
 	//TEST
 	public void test1 () {
 		MontagneRusse mont = new MontagneRusse("Truc de la mort");
@@ -337,32 +381,33 @@ public class Parc {
 		
 		System.out.println("Bonjour et bienvenue sur la simulation de parc d'attraction.");
 		
+		//création du parc
 		System.out.println("Pour commencer ... \nQuel est le nom de votre parc ?");
 		this.setNom(sc.nextLine());
 		
 		while (this.getNbStrucMax() == 0) {			
 			System.out.println("Ensuite, quel est la taille du parc ? -> nombre de structure (boutiques et attractions) maximal");
-			this.setNbStrucMax(sc.nextInt());
+			this.setNbStrucMax(extractInt(sc.nextLine()));
 			
 			if (this.getNbStrucMax() == 0) {
 				System.out.println("Le parc doit avoir au moins une structure !");
 			}
 		}
 		
-		/*
-		System.out.println("Et enfin combien pourra-t-il y avoir de visiteurs ?");
-		this.setNbVisiteurMax(sc.nextInt());
-		*/
+		//création des visiteurs
 		this.setNbVisiteurMax(this.getNbStrucMax() * this.getCoeffVisiteur());
+		System.out.println("Création des visteurs ...");
+		this.creationVisiteur();
+		System.out.println(this.listVisiteur);
 		
 		System.out.println("Le parc est créé ! \n\nMaintenant il faut creer les structures ...\nCombien y aura-t-il d'attractions ?");
-		int nbAttract =  sc.nextInt();
+		int nbAttract =  extractInt(sc.nextLine());
 		
 		while (nbAttract == 0) {
 			System.out.println("Il ne peu y avoir aucune attraction ... Sinon ça ne serait pas un parc d'attraction ! \n\n");
 			System.out.println("Combien y aura-t-il d'attractions ?");
 			
-			nbAttract =  sc.nextInt();
+			nbAttract =  extractInt(sc.nextLine());
 		}
 		
 		if (nbAttract > this.getNbStrucMax()) {
@@ -375,7 +420,7 @@ public class Parc {
 			while (choix == 0) {
 				System.out.println("Vous avez le choix entre : \n  Attraction à sensation \n    1 -> Montagne Russe \n  Attraction aquatique \n    2 -> Bulle");
 				System.out.println("Faites votre choix ! (entrez un nombre)");
-				choix = sc.nextInt();
+				choix = extractInt(sc.nextLine());
 				
 				switch (choix) {
 				  case 1 :
@@ -393,7 +438,8 @@ public class Parc {
 				}
 			}
 		}
-			
+		
+		//création des boutiques
 		if (nbAttract == this.getNbStrucMax()) {
 			System.out.println("Impossible de rajouter des boutiques dans le parc, le nombre de structure est déjà au maximum.");
 		}
@@ -405,7 +451,7 @@ public class Parc {
 				while (choix == 0) {
 					System.out.println("Vous avez le choix entre : \n  1 -> Creperie \n  2 -> Souvenir");
 					System.out.println("Faites votre choix ! (entrez un nombre)");
-					choix = sc.nextInt();
+					choix = extractInt(sc.nextLine());
 					
 					switch (choix) {
 					  case 1 :
@@ -423,6 +469,8 @@ public class Parc {
 				}
 			}
 		}
+		
+		
 		
 		sc.close();
 	}

@@ -71,6 +71,12 @@ public class Visiteur {
 			++i;
 		}
 	}
+	
+	public void exec (Structure s) throws Exception{
+		this.occupe = true;
+		Thread.sleep(s.getTpsExec());
+		s.supprVisiteur(this);
+	}
 
 	@Override
 	public String toString() {
