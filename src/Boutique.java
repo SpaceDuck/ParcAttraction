@@ -4,14 +4,14 @@ public abstract class Boutique extends Structure {
 	private int prix;
 	private final static boolean RESTRIC_AGE = true;
 	
-	private Boutique(String nom, int nbPlace, int tpsExec, int nbPlaceMax,
+	private Boutique(String nom, int tpsExec, int nbPlaceMax,
 			boolean restricAge) {
-		super(nom, nbPlace, tpsExec, nbPlaceMax, restricAge);
+		super(nom, tpsExec, nbPlaceMax, restricAge);
 		// TODO Auto-generated constructor stub
 	}
-	public Boutique(String nom, int nbPlace, int tpsExec, int nbPlaceMax, int prix) {
+	public Boutique(String nom, int tpsExec, int nbPlaceMax, int prix) {
 	
-		super(nom, nbPlace, tpsExec, nbPlaceMax, RESTRIC_AGE);
+		super(nom, tpsExec, nbPlaceMax, RESTRIC_AGE);
 		// TODO Auto-generated constructor stub
 		this.prix = prix;
 	}

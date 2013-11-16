@@ -1,15 +1,11 @@
 
 public abstract class AttractionSensation extends Attraction{
 	
-	private static final int PROBA_PANNE = 60;
+	private static final boolean RESTRIC_AGE =  true;
 
-	private AttractionSensation(String nom, int nbPlace, int tpsExec,
-			int probaPanne, boolean restricAge, int tpsAtt) {
-		super(nom, nbPlace, tpsExec, probaPanne, restricAge, tpsAtt);
-	}
+	public AttractionSensation(String nom, int tpsExec, int nbPlaceMax, int tpsAtt) {
+		super(nom, tpsExec, nbPlaceMax, RESTRIC_AGE, tpsAtt);
+	}	
 	
-	public AttractionSensation(String nom, int nbPlace, int tpsExec, boolean restricAge, int tpsAtt) {
-		super(nom, nbPlace, tpsExec, PROBA_PANNE, restricAge, tpsAtt);
-	}
 
 }

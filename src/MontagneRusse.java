@@ -1,16 +1,13 @@
 
 public class MontagneRusse extends AttractionSensation{
 	
-	private static final boolean RESTRIC_AGE = true;
-
-	private MontagneRusse(String nom, int nbPlace, int tpsExec,
-			boolean restricAge, int tpsAtt) {
-		super(nom, nbPlace, tpsExec, restricAge, tpsAtt);
-		this.setNom("[Montagne Russe] " + this.getNom());
-	}
+	private static final int NB_PLACE = 4;
+	private static final int TPS_EXEC = 5;
+	private static final int TPS_ATT = 3;
+	private static final String NOM = "[Montagne Russe] ";
 	
-	public MontagneRusse(String nom, int nbPlace, int tpsExec, int tpsAtt) {
-		super(nom, nbPlace, tpsExec, RESTRIC_AGE, tpsAtt);
-		this.setNom("[Montagne Russe] " + this.getNom());
+	public MontagneRusse(String nom) {
+		super(nom, NB_PLACE, TPS_EXEC, TPS_ATT);
+		this.setNom(NOM + this.getNom());
 	}
 }

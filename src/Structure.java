@@ -4,17 +4,16 @@ import java.util.List;
 
 public abstract class Structure {
 	private String nom;
-	private int nbPlace;
+	private int nbPlace = 0;
 	private final int NB_PLACE_MAX;
 	private int tpsExec;
 	private boolean restricAge;
 	private int nivPropre = 100;
 	private List<Visiteur> listVisiteur = new ArrayList<Visiteur> ();
 	
-	public Structure(String nom, int nbPlace, int tpsExec, int nbPlaceMax, boolean restricAge) {
+	public Structure(String nom, int tpsExec, int nbPlaceMax, boolean restricAge) {
 		super();
 		this.nom = nom;
-		this.nbPlace = nbPlace;
 		this.tpsExec = tpsExec;
 		this.NB_PLACE_MAX = nbPlaceMax;
 		this.restricAge = restricAge;

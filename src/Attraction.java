@@ -1,20 +1,18 @@
 public abstract class Attraction extends Structure {
 	
-	private int probaPanne;
+	private int probaPanne = 0;
 	private int tpsAtt;
 	private boolean enMarche;
 	private boolean enInspection;
 	
 
-	private Attraction(String nom, int nbPlace, int tpsExec, boolean restricAge) {
-		super(nom, nbPlace, tpsExec, tpsExec, restricAge);
+	private Attraction(String nom, int tpsExec, int nbPlaceMax, boolean restricAge) {
+		super(nom, tpsExec, nbPlaceMax, restricAge);
 	}
 
 
-	public Attraction(String nom, int nbPlace, int tpsExec, int probaPanne,
-			boolean restricAge, int tpsAtt) {
-		super(nom, nbPlace, tpsExec, tpsAtt, restricAge);
-		this.probaPanne = probaPanne;
+	public Attraction(String nom, int tpsExec, int nbPlaceMax, boolean restricAge, int tpsAtt) {
+		super(nom, tpsExec, nbPlaceMax, restricAge);
 		this.tpsAtt = tpsAtt;
 	}
 
@@ -138,7 +136,7 @@ public abstract class Attraction extends Structure {
 		}
 	}
 	
-	public void exec() throws Exception {
+	public void exec(Parc p) throws Exception {
 		if (!(this.enInspection) && (this.probaPanne < 50 )) {
 			this.enMarche = true;
 			Thread.sleep(1000 * this.getTpsExec());
@@ -146,7 +144,7 @@ public abstract class Attraction extends Structure {
 			this.supprAllVisiteur();
 		}
 		else if (!(this.enInspection) && (this.probaPanne >= 50)){
-			this.appelReparateur(p)
+			this.appelReparateur(p);
 		}
 		else {
 			System.out.println("Impossible, l'attraction " + this.getNom() +  " est en inspection.");
