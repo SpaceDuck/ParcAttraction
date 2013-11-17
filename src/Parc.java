@@ -20,8 +20,21 @@ public class Parc {
 	private int nbVisiteurMax = 0;
 	private List<Visiteur> listVisiteur = new ArrayList<Visiteur> ();
 	
-	private static final int COEFF_VISTEUR = 4;
-	private static final int COEFF_ADULTE = 4;
+	private static final int COEFF_VISTEUR = 4; //nombre de visiteurs par rapport au nombre de structures
+	private static final int COEFF_ADULTE = 4; //nombre d'adultes par rapport au nombre de visiteurs
+	private static final int COEFF_AGENT_ENTRETIEN = 2; //nombre d'agents d'entretien par rapport au structure
+	private static final int COEFF_REPARATEUR = 3; //nombre de réparateur par rapport au nombre d'attraction
+	
+	/*
+	 * exemple :
+	 * Pour 5 structures dont 3 attractions avec 
+	 * COEFF_VISTEUR = 4, COEFF_ADULTE = 4, COEFF_AGENT_ENTRETIEN = 2, COEFF_REPARATEUR = 3;
+	 * On a :
+	 * - 20 visiteurs,
+	 * - dont 16 adultes (approximativement),
+	 * - 2 agents d'entretien,
+	 * - 1 réparateur.
+	 */
 	
 	public Parc(String nom, int hDeb, int hFin, int nbStruct,
 			int nbStrucMax, List<Attraction> listAttract, int nbVisiteur,
@@ -470,17 +483,25 @@ public class Parc {
 			}
 		}
 		
-		System.out.println("Enfin, pour finir, il faut embaucher le personnel pour la maintenance du parc.\nPour commencer deux agents d'entretiens.\n");
-		System.out.println("Nom du premier agent :");
-		nom = sc.nextLine();
-		this.ajoutAgentEntretien(new AgentEntretien(nom));
-		System.out.println("Nom du deuxieme agent :");
-		nom = sc.nextLine();
-		this.ajoutAgentEntretien(new AgentEntretien(nom));
+		//création des agents d'entretien
+		int nbEmploye = this.nbStruct / COEFF_AGENT_ENTRETIEN;
+		System.out.println("Enfin, pour finir, il faut embaucher le personnel pour la maintenance du parc.\nPour commencer " + nbEmploye + " agents d'entretiens.\n");
 		
-		System.out.println("Et enfin, le réparateur d'attraction.\nSon nom :");
-		nom = sc.nextLine();
-		this.ajoutReparateur(new Reparateur(nom));
+		for (int i = 0; i < nbEmploye; ++i) {
+			System.out.println("Nom de l'agent " + i + " : ");
+			nom = sc.nextLine();
+			this.ajoutAgentEntretien(new AgentEntretien(nom));	
+		}
+		
+		//création des réparateurs
+		nbEmploye = nbAttract / COEFF_REPARATEUR;
+		
+		System.out.println("Et enfin, le(s) réparateur(s) d'attraction(s).\n Il y en aura " + nbEmploye);
+		for (int i = 0; i < nbEmploye; ++i) {
+			System.out.println("Nom du répateur " + i + " : ");
+			nom = sc.nextLine();
+			this.ajoutReparateur(new Reparateur(nom));	
+		}
 		
 		System.out.println("La création du parc est terminée.\nLa simulation commence dans 3sec...");
 		try {

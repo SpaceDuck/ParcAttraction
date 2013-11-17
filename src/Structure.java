@@ -113,7 +113,27 @@ public abstract class Structure {
 	public void exec (Parc p) throws Exception {
 		while (!(this.getListVisiteur().isEmpty())) {
 			
+			if (this.nivPropre < 50) {
+				this.appelEntretien (p);
+			}
+			
+			this.nivPropre = this.nivPropre + TAUX_SALIR;
+			
 			this.getListVisiteur().get(0).exec(this);
+		}
+	}
+	
+	public void appelEntretien (Parc p) throws InterruptedException {
+		for (AgentEntretien a : p.getListAgentEntretien()){
+			if (a.isTravaille() == false){
+				a.setTravaille(true);
+				Thread.sleep(3000);
+				a.setTravaille(false);
+				break;
+			}
+			if (this.nivPropre < 50){
+				appelEntretien(p);
+			}
 		}
 	}
 
