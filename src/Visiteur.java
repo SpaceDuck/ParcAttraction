@@ -2,10 +2,12 @@ import java.util.Random;
 
 
 public class Visiteur {
+	private int idVisiteur;
 	private boolean adulte;
 	private int porteMonnaie;
 	private int dureeVie;
 	private boolean occupe;
+	private static int nbVisiteur = 0;
 	
 	public Visiteur(boolean adulte, int porteMonnaie, int dureeVie) {
 		super();
@@ -19,6 +21,9 @@ public class Visiteur {
 		}
 		
 		this.dureeVie = dureeVie;
+		
+		++nbVisiteur;
+		this.idVisiteur = nbVisiteur;
 	}
 
 	public boolean isAdulte() {
@@ -74,6 +79,7 @@ public class Visiteur {
 	
 	public void exec (Structure s) throws Exception{
 		this.occupe = true;
+		System.out.println(this.idVisiteur + " rentre dans " + s.getNom());
 		Thread.sleep(s.getTpsExec());
 		s.supprVisiteur(this);
 	}

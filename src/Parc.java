@@ -389,7 +389,7 @@ public class Parc {
 		this.allAttractExec();
 	}
 	
-	public void test4 () {
+	public void execution () {
 		Scanner sc = new Scanner(System.in);
 		
 		System.out.println("Bonjour et bienvenue sur la simulation de parc d'attraction.");
@@ -411,8 +411,8 @@ public class Parc {
 		this.setNbVisiteurMax(this.getNbStrucMax() * this.getCoeffVisiteur());
 		System.out.println("Création des visteurs ...");
 		this.creationVisiteur();
-		System.out.println(this.listVisiteur);
 		
+		//créations des structures
 		System.out.println("Le parc est créé ! \n\nMaintenant il faut creer les structures ...\nCombien y aura-t-il d'attractions ?");
 		int nbAttract =  extractInt(sc.nextLine());
 		
@@ -503,28 +503,17 @@ public class Parc {
 			this.ajoutReparateur(new Reparateur(nom));	
 		}
 		
-		System.out.println("La création du parc est terminée.\nLa simulation commence dans 3sec...");
-		try {
-			Thread.sleep(1000);
-			System.out.println("2sec...");
-			Thread.sleep(1000);
-			System.out.println("1sec...");
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+		System.out.println("La création du parc est terminée.\nLa simulation commence ...");
 		
-		while (sc.nextLine() != "exit") {
-			this.allVisiteurSearch();
-			this.allAttractExec();
-		}
+		//this.allVisiteurSearch();
+		//this.allAttractExec();
 		
 		sc.close();
 	}
 	
 	public static void main(String[] args) {
 		Parc parc = new Parc();
-		parc.test4();
+		parc.execution();
 	}
 
 }
