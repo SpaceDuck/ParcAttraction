@@ -431,7 +431,7 @@ public class Parc {
 		String nom = new String ();
 		for (int i = 0, choix = 0; i < nbAttract; ++i, choix = 0) {
 			while (choix == 0) {
-				System.out.println("Vous avez le choix entre : \n  Attraction à sensation \n    1 -> Montagne Russe \n  Attraction aquatique \n    2 -> Bulle");
+				System.out.println("Vous avez le choix entre : \n  Attraction à sensation \n    1 -> Montagne Russe \n  Attraction aquatique \n    2 -> Bulle \n  Attraction pour enfant \n    3 -> Manege pour enfant");
 				System.out.println("Faites votre choix ! (entrez un nombre)");
 				choix = extractInt(sc.nextLine());
 				
@@ -444,6 +444,10 @@ public class Parc {
 				  case 2 :
 					  System.out.println("Son nom ?");
 					  this.ajoutStructure(new Bulle(sc.nextLine()));
+					  break;
+				  case 3 :
+					  System.out.println("Son nom ?");
+					  this.ajoutStructure(new ManegeEnfant(sc.nextLine()));
 					  break;
 				  default :
 					  System.out.println("Erreur, merci de rentrer un nombre dans les choix proposé.");
